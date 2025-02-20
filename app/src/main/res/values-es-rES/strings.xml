@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DbHeroKombat</string>
+    <string name="dragonball_app">App Bola de Dragon</string>
+    <string name="insert_user">Introduce tu nombre de usuario</string>
+    <string name="insert_your_password">Inserta Contraseña</string>
+    <string name="login">Iniciar Sesión</string>
+</resources>
