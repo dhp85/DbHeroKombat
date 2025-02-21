@@ -29,16 +29,19 @@
 
 
             <EditText
+                android:id="@+id/EditTextUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/insert_user" />
 
             <EditText
+                android:id="@+id/EditTextPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/insert_your_password" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/rememberUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/remember_user" />
@@ -47,6 +50,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <Button
+        android:id="@+id/loginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
