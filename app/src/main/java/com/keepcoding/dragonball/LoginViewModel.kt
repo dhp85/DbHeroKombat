@@ -35,9 +35,6 @@ class LoginViewModel: ViewModel() {
             }
         }
     }
-
-
-
     /**
      * Guarda las credenciales del usuario en SharedPreferences de manera asíncrona.
      *

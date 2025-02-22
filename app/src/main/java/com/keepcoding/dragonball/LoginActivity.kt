@@ -2,6 +2,7 @@ package com.keepcoding.dragonball
 
 import android.app.Activity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -40,37 +41,33 @@ class LoginActivity : AppCompatActivity() {
         // MODE_PRIVATE es el modo en que las preferencias son privadas para esta aplicación
         viewModel.saveCredentials(
             preferences = getSharedPreferences("LoginPreferences", MODE_PRIVATE),
-            user = "Juan",  // El nombre de usuario para guardar
-            password = "123456"  // La contraseña para guardar (es recomendable cifrarla en un entorno real)
+            user = binding.EditTextUser.text.toString(),  // El nombre de usuario para guardar
+            password = binding.EditTextPassword.text.toString()  // La contraseña para guardar (es recomendable cifrarla en un entorno real)
         )
-
-        // Muestra un mensaje de éxito indicando que el acceso es correcto
-        Toast.makeText(this, "Correct Access", Toast.LENGTH_LONG).show()
-
-        // Cargamos una imagen de los recursos (en este caso, un fondo) usando ContextCompat
-        val image = ContextCompat.getDrawable(this, R.mipmap.fondo_login)
-
         // Encontramos el botón de inicio de sesión por su ID y lo asignamos a la variable buttonLogin
         //val buttonLogin = findViewById<Button>(R.id.loginButton)
         binding.loginButton.setOnClickListener{
-            Toast.makeText(this, "Tap Button", Toast.LENGTH_LONG).show()
+            viewModel.login(
+                user = binding.EditTextUser.text.toString(),
+                password = binding.EditTextPassword.text.toString()
+            )
         }
         // El siguiente paso sería configurar un OnClickListener para el botón y agregar lógica de autenticación
     }
-
-
     private fun setObservers() {
         lifecycleScope.launch {
             viewModel.uiState.collect { state ->
                 when(state){
                     is LoginViewModel.State.Idle -> {}
                     is LoginViewModel.State.Loading -> {
-                        // Mostrar loading.
+                       binding.spinningLoading.visibility = View.VISIBLE
                     }
                     is LoginViewModel.State.Successs -> {
+                        binding.spinningLoading.visibility = View.INVISIBLE
                         Toast.makeText(this@LoginActivity, "Ir a la siguiente pantalla", Toast.LENGTH_LONG).show()
                     }
                     is LoginViewModel.State.Error -> {
+                        binding.spinningLoading.visibility = View.INVISIBLE
                         Toast.makeText(this@LoginActivity, "Ha ocurrido un error. ${state.message} ${state.errorCode}", Toast.LENGTH_LONG).show()
                     }
                 }
