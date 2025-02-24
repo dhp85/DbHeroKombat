@@ -61,13 +61,16 @@ class LoginActivity : AppCompatActivity() {
                     is LoginViewModel.State.Idle -> {}
                     is LoginViewModel.State.Loading -> {
                        binding.spinningLoading.visibility = View.VISIBLE
+                        binding.loginButton.visibility = View.GONE
                     }
                     is LoginViewModel.State.Successs -> {
-                        binding.spinningLoading.visibility = View.INVISIBLE
+                        binding.spinningLoading.visibility = View.GONE
+                        binding.loginButton.visibility = View.VISIBLE
                         Toast.makeText(this@LoginActivity, "Ir a la siguiente pantalla", Toast.LENGTH_LONG).show()
                     }
                     is LoginViewModel.State.Error -> {
-                        binding.spinningLoading.visibility = View.INVISIBLE
+                        binding.spinningLoading.visibility = View.GONE
+                        binding.loginButton.visibility = View.VISIBLE
                         Toast.makeText(this@LoginActivity, "Ha ocurrido un error. ${state.message} ${state.errorCode}", Toast.LENGTH_LONG).show()
                     }
                 }

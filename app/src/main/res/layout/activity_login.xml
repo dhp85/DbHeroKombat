@@ -15,12 +15,13 @@
         android:layout_height="wrap_content"
         android:src="@mipmap/dragon_ball_logo"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="56dp"
         android:layout_marginBottom="56dp"/>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
         android:layout_marginHorizontal="16dp"
         android:backgroundTint="@color/azul_transp30">
 
@@ -64,14 +65,15 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="invisible"/>
+        android:layout_margin="16dp"
+        android:visibility="gone"/>
 
 
     <Button
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp"
+        android:layout_margin="16dp"
         android:backgroundTint="@color/azul_oscuro"
         android:textColor="@color/white"
         android:text="@string/login" />
