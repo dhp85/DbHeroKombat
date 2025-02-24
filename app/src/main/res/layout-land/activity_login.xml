@@ -1,64 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/fondo_login_landscape"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".LoginActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <ImageView
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_margin="24dp"
-        android:text="@string/dragonball_app" />
+        android:src="@mipmap/dragon_ball_logo"
+        android:layout_marginHorizontal="16dp" />
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginHorizontal="35dp"
+        android:backgroundTint="@color/azul_transp20">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical">
+
 
             <EditText
                 android:id="@+id/EditTextUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gris"
                 android:hint="@string/insert_user" />
 
             <EditText
                 android:id="@+id/EditTextPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gris"
+                android:inputType="textPassword"
                 android:hint="@string/insert_your_password" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/rememberUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/gris"
+                android:buttonTint="#1E3A8A"
+                android:backgroundTint="@color/azul_oscuro"
                 android:text="@string/remember_user" />
 
-            <ProgressBar
-                android:id="@+id/spinningLoading"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="invisible"/>
-
         </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <ProgressBar
+        android:id="@+id/spinningLoading"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"/>
 
 
-        <Button
-            android:id="@+id/loginButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:text="@string/login" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:backgroundTint="@color/azul_oscuro"
+        android:textColor="@color/white"
+        android:text="@string/login" />
+
+
+
 
 </LinearLayout>
