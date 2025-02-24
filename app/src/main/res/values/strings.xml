@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">DbHeroKombat</string>
     <string name="dragonball_app">DragonBall App</string>
-    <string name="insert_user">Insert your user name</string>
-    <string name="insert_your_password">Insert your password</string>
+    <string name="insert_user">Enter your Email</string>
+    <string name="insert_your_password">Enter your password</string>
     <string name="login">Login</string>
     <string name="remember_user">Remember User</string>
 </resources>

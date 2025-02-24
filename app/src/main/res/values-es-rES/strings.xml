@@ -2,8 +2,8 @@
 <resources>
     <string name="app_name">DbHeroKombat</string>
     <string name="dragonball_app">App Bola de Dragon</string>
-    <string name="insert_user">Introduce tu nombre de usuario</string>
-    <string name="insert_your_password">Inserta Contraseña</string>
+    <string name="insert_user">Correo Electrónico</string>
+    <string name="insert_your_password">Introduce Contraseña</string>
     <string name="login">Iniciar Sesión</string>
     <string name="remember_user">Recordar Usuario</string>
 </resources>
