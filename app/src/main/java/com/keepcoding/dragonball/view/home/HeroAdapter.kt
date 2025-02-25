@@ -1,10 +1,11 @@
-package com.keepcoding.dragonball
+package com.keepcoding.dragonball.view.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.keepcoding.dragonball.Model.HeroModel
+import com.keepcoding.dragonball.R
+import com.keepcoding.dragonball.model.HeroModel
 import com.keepcoding.dragonball.databinding.ItemHerosKombatBinding
 
 class HeroAdapter(private var onHeroCliked: (HeroModel) -> Unit) :

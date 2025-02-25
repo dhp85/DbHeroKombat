@@ -1,19 +1,15 @@
-package com.keepcoding.dragonball
+package com.keepcoding.dragonball.view.login
 
-import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.keepcoding.dragonball.databinding.ActivityLoginBinding
-import kotlinx.coroutines.flow.collect
+import com.keepcoding.dragonball.view.home.HerosKombatActivity
 import kotlinx.coroutines.launch
 
 
@@ -55,6 +51,7 @@ class LoginActivity : AppCompatActivity() {
                     is LoginViewModel.State.Successs -> {
                         successSettings()
                         Toast.makeText(this@LoginActivity, "Ir a la siguiente pantalla", Toast.LENGTH_LONG).show()
+                        startJuegoActivity(state.token)
                     }
                     is LoginViewModel.State.Error -> {
                         errorSettings()
@@ -63,6 +60,10 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun startJuegoActivity(token: String) {
+        HerosKombatActivity.startJuegoActivity(this,token)
     }
 
     // FUNTIONS SETTINGS VIEWS

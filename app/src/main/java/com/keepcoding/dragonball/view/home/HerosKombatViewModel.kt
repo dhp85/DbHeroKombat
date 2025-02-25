@@ -1,8 +1,8 @@
-package com.keepcoding.dragonball
+package com.keepcoding.dragonball.view.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keepcoding.dragonball.Model.HeroModel
+import com.keepcoding.dragonball.model.HeroModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -10,6 +10,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class HerosKombatViewModel : ViewModel() {
+
+    private var token = ""
 
     sealed class State {
         data object Loading : State()
@@ -20,6 +22,10 @@ class HerosKombatViewModel : ViewModel() {
     private val _uiState = MutableStateFlow<State>(State.Loading)
     val uiState: StateFlow<State> = _uiState.asStateFlow()
 
+
+    fun updateToken(token: String) {
+        this.token = token
+    }
 
     fun loadHeros() {
         viewModelScope.launch {

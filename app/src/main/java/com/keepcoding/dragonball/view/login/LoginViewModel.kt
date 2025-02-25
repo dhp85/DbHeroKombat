@@ -1,4 +1,4 @@
-package com.keepcoding.dragonball
+package com.keepcoding.dragonball.view.login
 
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
@@ -8,7 +8,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import java.util.prefs.Preferences
 import kotlin.random.Random
 
 
