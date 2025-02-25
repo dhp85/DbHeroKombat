@@ -16,43 +16,33 @@ import com.keepcoding.dragonball.databinding.ActivityLoginBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-// Declaración de la clase LoginActivity que hereda de AppCompatActivity
+
 class LoginActivity : AppCompatActivity() {
 
-    // Declaración de las variables que se usarán para el ViewModel y el enlace a las vistas
-    private val viewModel: LoginViewModel by viewModels()  // ViewModel para manejar la lógica de inicio de sesión
-    private lateinit var binding: ActivityLoginBinding  // Binding para acceder a las vistas definidas en el XML
+    private val viewModel: LoginViewModel by viewModels()
+    private lateinit var binding: ActivityLoginBinding
 
-    // Método onCreate que se ejecuta cuando la actividad es creada
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Inflamos el archivo de diseño XML usando ViewBinding
         binding = ActivityLoginBinding.inflate(layoutInflater)
-
-        // Establecemos el contenido de la actividad utilizando el binding (que contiene todas las vistas del layout)
         setContentView(binding.root)
         setObservers()
-        // Método personalizado para habilitar el diseño de borde a borde en dispositivos con pantallas sin bordes
         enableEdgeToEdge()
 
-        // Guardamos las credenciales (usuario y contraseña) en las SharedPreferences
-        // "LoginPreferences" es el nombre del archivo donde se almacenan las credenciales
-        // MODE_PRIVATE es el modo en que las preferencias son privadas para esta aplicación
         viewModel.saveCredentials(
             preferences = getSharedPreferences("LoginPreferences", MODE_PRIVATE),
-            user = binding.EditTextUser.text.toString(),  // El nombre de usuario para guardar
-            password = binding.EditTextPassword.text.toString()  // La contraseña para guardar (es recomendable cifrarla en un entorno real)
+            user = binding.EditTextUser.text.toString(),
+            password = binding.EditTextPassword.text.toString()
         )
-        // Encontramos el botón de inicio de sesión por su ID y lo asignamos a la variable buttonLogin
-        //val buttonLogin = findViewById<Button>(R.id.loginButton)
+
         binding.loginButton.setOnClickListener{
             viewModel.login(
                 user = binding.EditTextUser.text.toString(),
                 password = binding.EditTextPassword.text.toString()
             )
         }
-        // El siguiente paso sería configurar un OnClickListener para el botón y agregar lógica de autenticación
+
     }
     private fun setObservers() {
         lifecycleScope.launch {
@@ -60,21 +50,35 @@ class LoginActivity : AppCompatActivity() {
                 when(state){
                     is LoginViewModel.State.Idle -> {}
                     is LoginViewModel.State.Loading -> {
-                       binding.spinningLoading.visibility = View.VISIBLE
-                        binding.loginButton.visibility = View.GONE
+                       loadingSettings()
                     }
                     is LoginViewModel.State.Successs -> {
-                        binding.spinningLoading.visibility = View.GONE
-                        binding.loginButton.visibility = View.VISIBLE
+                        successSettings()
                         Toast.makeText(this@LoginActivity, "Ir a la siguiente pantalla", Toast.LENGTH_LONG).show()
                     }
                     is LoginViewModel.State.Error -> {
-                        binding.spinningLoading.visibility = View.GONE
-                        binding.loginButton.visibility = View.VISIBLE
+                        errorSettings()
                         Toast.makeText(this@LoginActivity, "Ha ocurrido un error. ${state.message} ${state.errorCode}", Toast.LENGTH_LONG).show()
                     }
                 }
             }
         }
     }
+
+    // FUNTIONS SETTINGS VIEWS
+    private fun loadingSettings(){
+        binding.spinningLoading.visibility = View.VISIBLE
+        binding.loginButton.visibility = View.GONE
+    }
+
+    private fun successSettings(){
+        binding.spinningLoading.visibility = View.GONE
+        binding.loginButton.visibility = View.VISIBLE
+    }
+
+    private  fun errorSettings() {
+        binding.spinningLoading.visibility = View.GONE
+        binding.loginButton.visibility = View.VISIBLE
+    }
+
 }
