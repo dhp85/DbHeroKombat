@@ -11,10 +11,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.keepcoding.dragonball.databinding.ActivityHerosKombatBinding
+import com.keepcoding.dragonball.view.home.detail.DetailFragment
 import com.keepcoding.dragonball.view.home.list.ListFragment
 import kotlinx.coroutines.launch
 
-class HerosKombatActivity : AppCompatActivity() {
+
+interface HerosKombatProtocol {
+    fun navListFragments()
+    fun navDetailFragments()
+}
+
+class HerosKombatActivity : AppCompatActivity(), HerosKombatProtocol {
 
     companion object {
 
@@ -39,7 +46,7 @@ class HerosKombatActivity : AppCompatActivity() {
         token?.let {
             viewModel.updateToken(token)
         } ?: run {
-            Toast.makeText(this,"No hay token la activity se va a cerrar", Toast.LENGTH_LONG)
+            Toast.makeText(this, "No hay token la activity se va a cerrar", Toast.LENGTH_LONG)
             finish()
         }
 
@@ -48,8 +55,20 @@ class HerosKombatActivity : AppCompatActivity() {
     }
 
     private fun initFragments() {
+        navListFragments()
+        //navDetailFragments()
+    }
+
+    override fun navListFragments() {
         supportFragmentManager.beginTransaction().apply {
             replace(binding.flList.id, ListFragment())
+            commit()
+        }
+    }
+
+    override fun navDetailFragments() {
+        supportFragmentManager.beginTransaction().apply {
+            replace(binding.flList.id, DetailFragment())
             addToBackStack(null)
             commit()
         }

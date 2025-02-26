@@ -5,13 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.keepcoding.dragonball.databinding.FragmentListBinding
-import com.keepcoding.dragonball.view.home.HeroAdapter
+import com.keepcoding.dragonball.view.home.HerosKombatProtocol
 import com.keepcoding.dragonball.view.home.HerosKombatViewModel
 import kotlinx.coroutines.launch
 
@@ -21,7 +20,7 @@ class ListFragment: Fragment() {
 
     private  val herosAdapter = HeroAdapter(
         onHeroCliked = { HeroModel ->
-            Toast.makeText(this.context, HeroModel.name, Toast.LENGTH_SHORT).show()
+            viewModel.heroSelected(HeroModel)
         }
     )
 
@@ -58,6 +57,9 @@ class ListFragment: Fragment() {
                     }
                     is HerosKombatViewModel.State.Error -> {
                         errorSettings()
+                    }
+                    is HerosKombatViewModel.State.HeroSelected -> {
+                        (activity as? HerosKombatProtocol)?.navDetailFragments()
                     }
                 }
 

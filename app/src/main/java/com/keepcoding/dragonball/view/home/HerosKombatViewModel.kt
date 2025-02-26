@@ -11,12 +11,14 @@ import kotlinx.coroutines.launch
 
 class HerosKombatViewModel : ViewModel() {
 
+    private val BASE_URL = "https://dragonball.keepcoding.education/api/"
     private var token = ""
 
     sealed class State {
         data object Loading : State()
         data class Success(val Heros: List<HeroModel>) : State()
         data class Error(val message: String) : State()
+        data class HeroSelected(val hero: HeroModel): State()
     }
 
     private val _uiState = MutableStateFlow<State>(State.Loading)
@@ -30,10 +32,14 @@ class HerosKombatViewModel : ViewModel() {
     fun loadHeros() {
         viewModelScope.launch {
             _uiState.value = State.Loading
-            delay(2000)
+           delay(2000)
             val heros = fetchHeros()
             _uiState.value = State.Success(heros)
         }
+    }
+
+    fun heroSelected(hero: HeroModel){
+        _uiState.value = State.HeroSelected(hero)
     }
 
     private fun fetchHeros() = listOf(
@@ -66,5 +72,4 @@ class HerosKombatViewModel : ViewModel() {
             maxLife = 100
         )
     )
-
 }

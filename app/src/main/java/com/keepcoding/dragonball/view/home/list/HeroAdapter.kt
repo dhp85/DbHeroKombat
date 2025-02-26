@@ -1,4 +1,4 @@
-package com.keepcoding.dragonball.view.home
+package com.keepcoding.dragonball.view.home.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
