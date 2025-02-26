@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.keepcoding.dragonball.databinding.ActivityHerosKombatBinding
+import com.keepcoding.dragonball.view.home.list.ListFragment
 import kotlinx.coroutines.launch
 
 class HerosKombatActivity : AppCompatActivity() {
@@ -27,11 +28,6 @@ class HerosKombatActivity : AppCompatActivity() {
 
     private val viewModel: HerosKombatViewModel by viewModels()
     private lateinit var binding: ActivityHerosKombatBinding
-    private  val herosAdapter = HeroAdapter(
-        onHeroCliked = { HeroModel ->
-            Toast.makeText(this, HeroModel.name, Toast.LENGTH_SHORT).show()
-        }
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,51 +43,15 @@ class HerosKombatActivity : AppCompatActivity() {
             finish()
         }
 
-        initViews()
-        setObservers()
         viewModel.loadHeros()
+        initFragments()
     }
 
-    private fun initViews() {
-        binding.Rclistheros.layoutManager = LinearLayoutManager(this)
-        binding.Rclistheros.adapter = herosAdapter
-    }
-
-    private fun setObservers(){
-
-        lifecycleScope.launch {
-            viewModel.uiState.collect { state->
-                when(state){
-
-                    is HerosKombatViewModel.State.Loading -> {
-                    loadingSettings()
-                    }
-                    is HerosKombatViewModel.State.Success -> {
-                        successSettings()
-                        herosAdapter.updateHeros(state.Heros)
-                    }
-                    is HerosKombatViewModel.State.Error -> {
-                        errorSettings()
-                    }
-                }
-
-            }
+    private fun initFragments() {
+        supportFragmentManager.beginTransaction().apply {
+            replace(binding.flList.id, ListFragment())
+            addToBackStack(null)
+            commit()
         }
-
-    }
-
-// FUNTIONS SETTINGS VIEWS
-    private fun loadingSettings() {
-        binding.loadingheroslist.visibility = View.VISIBLE
-        binding.Rclistheros.visibility = View.GONE
-    }
-
-    private fun successSettings() {
-        binding.loadingheroslist.visibility = View.GONE
-        binding.Rclistheros.visibility = View.VISIBLE
-    }
-
-    private fun errorSettings(){
-        binding.loadingheroslist.visibility = View.GONE
     }
 }

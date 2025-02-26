@@ -9,9 +9,18 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/flList"
+    <ProgressBar
+        android:id="@+id/loadingheroslist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/Rclistheros"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_heros_kombat"
+        android:visibility="visible"
+        tools:itemCount="10"/>
 
 </LinearLayout>
