@@ -12,11 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.keepcoding.dragonball.databinding.FragmentListBinding
 import com.keepcoding.dragonball.view.home.HerosKombatProtocol
 import com.keepcoding.dragonball.view.home.HerosKombatViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class ListFragment: Fragment() {
 
     private val viewModel: HerosKombatViewModel by activityViewModels()
+    private  var job: Job? = null
 
     private  val herosAdapter = HeroAdapter(
         onHeroCliked = { HeroModel ->
@@ -44,7 +46,7 @@ class ListFragment: Fragment() {
 
     private fun setObservers(){
 
-        lifecycleScope.launch {
+        job = lifecycleScope.launch {
             viewModel.uiState.collect { state->
                 when(state){
 
@@ -66,6 +68,11 @@ class ListFragment: Fragment() {
             }
         }
 
+    }
+
+    override fun onStop() {
+        super.onStop()
+        job?.cancel()
     }
 
     // FUNTIONS SETTINGS VIEWS

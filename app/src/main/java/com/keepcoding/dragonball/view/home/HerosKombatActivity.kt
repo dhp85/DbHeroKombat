@@ -14,6 +14,7 @@ import com.keepcoding.dragonball.databinding.ActivityHerosKombatBinding
 import com.keepcoding.dragonball.view.home.detail.DetailFragment
 import com.keepcoding.dragonball.view.home.list.ListFragment
 import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 
 interface HerosKombatProtocol {
@@ -25,10 +26,9 @@ class HerosKombatActivity : AppCompatActivity(), HerosKombatProtocol {
 
     companion object {
 
-        private val TAG_TOKEN = "token"
-        fun startJuegoActivity(context: Context, token: String) {
+
+        fun startJuegoActivity(context: Context) {
             val intent = Intent(context, HerosKombatActivity::class.java)
-            intent.putExtra(TAG_TOKEN, token)
             context.startActivity(intent)
         }
     }
@@ -42,21 +42,8 @@ class HerosKombatActivity : AppCompatActivity(), HerosKombatProtocol {
         binding = ActivityHerosKombatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val token = intent.getStringExtra(TAG_TOKEN)
-        token?.let {
-            viewModel.updateToken(token)
-        } ?: run {
-            Toast.makeText(this, "No hay token la activity se va a cerrar", Toast.LENGTH_LONG)
-            finish()
-        }
-
         viewModel.loadHeros()
-        initFragments()
-    }
-
-    private fun initFragments() {
         navListFragments()
-        //navDetailFragments()
     }
 
     override fun navListFragments() {

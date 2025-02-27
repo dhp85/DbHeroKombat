@@ -50,8 +50,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                     is LoginViewModel.State.Successs -> {
                         successSettings()
-                        Toast.makeText(this@LoginActivity, "Ir a la siguiente pantalla", Toast.LENGTH_LONG).show()
-                        startJuegoActivity(state.token)
+                        startJuegoActivity()
                     }
                     is LoginViewModel.State.Error -> {
                         errorSettings()
@@ -62,8 +61,9 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun startJuegoActivity(token: String) {
-        HerosKombatActivity.startJuegoActivity(this,token)
+    private fun startJuegoActivity() {
+        HerosKombatActivity.startJuegoActivity(this)
+        finish()
     }
 
     // FUNTIONS SETTINGS VIEWS

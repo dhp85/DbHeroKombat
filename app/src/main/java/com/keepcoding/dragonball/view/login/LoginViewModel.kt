@@ -3,6 +3,7 @@ package com.keepcoding.dragonball.view.login
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.keepcoding.dragonball.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,23 +15,27 @@ import kotlin.random.Random
 class LoginViewModel: ViewModel() {
 
     private val _uiState = MutableStateFlow<State>(State.Idle)
+    private val userRepository = UserRepository()
     val uiState: StateFlow<State> = _uiState
 
     sealed class State {
         data object Idle: State()
         data object Loading: State()
-        data class Successs(val token: String): State()
+        data object Successs: State()
         data class Error(val message: String, val errorCode: Int) : State()
     }
 
     fun login(user: String, password: String) {
         _uiState.value = State.Loading
-        viewModelScope.launch {
-            delay(2000)
-            if (Random.nextBoolean()) {
-                _uiState.value = State.Successs("ELLJKKDJKFJD43W323232323232324JLJJ")
-            } else {
-                _uiState.value = State.Error("Error", 401)
+        viewModelScope.launch(Dispatchers.IO) {
+            val loginResponse = userRepository.login(user,password)
+            when(loginResponse) {
+               is UserRepository.LoginResponse.Success -> {
+                   _uiState.value = State.Successs
+               }
+                is UserRepository.LoginResponse.Error -> {
+                    _uiState.value = State.Error("Error login", 401)
+                }
             }
         }
     }
@@ -53,3 +58,6 @@ class LoginViewModel: ViewModel() {
         }
     }
 }
+
+// Si el usuario ya hecho login, no volverselo a pedir.
+// Si el usuario le ha dado a recordar ususario y contraseña. Despues mostralo en el login.

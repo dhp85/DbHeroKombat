@@ -3,12 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/tvFDetail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Name"/>
+
     <ProgressBar
         android:id="@+id/pbFDetail"
         android:layout_width="match_parent"
@@ -17,5 +21,11 @@
         android:background="@color/gris"
         tools:progress="50"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
+
+    <Button
+        android:id="@+id/buttonFight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fight"/>
 
 </LinearLayout>
