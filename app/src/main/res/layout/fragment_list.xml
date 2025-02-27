@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".view.home.HerosKombatActivity"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@mipmap/fondo_lista">
 
     <ProgressBar
         android:id="@+id/loadingheroslist"
@@ -15,12 +16,24 @@
         android:layout_height="wrap_content"
         android:visibility="gone"/>
 
+    <TextView
+        android:id="@+id/TvTitleRcView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Heros"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="24dp"
+        android:padding="16dp"/>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/Rclistheros"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_heros_kombat"
         android:visibility="visible"
-        tools:itemCount="10"/>
+        tools:itemCount="10"
+        tools:listitem="@layout/item_heros_kombat" />
 
 </LinearLayout>

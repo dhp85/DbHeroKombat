@@ -31,6 +31,8 @@ class HeroAdapter(private var onHeroCliked: (HeroModel) -> Unit) :
                 .centerInside()
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .into(binding.photo)
+            binding.pblife.progress = hero.currentLife
+            binding.tvlife.text = "${hero.currentLife}/${hero.maxLife}"
             binding.root.setOnClickListener {
                 onHeroCliked(hero)
             }

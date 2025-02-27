@@ -9,7 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.keepcoding.dragonball.R
 import com.keepcoding.dragonball.databinding.FragmentListBinding
+import com.keepcoding.dragonball.tools.SpaceItemDecoration
 import com.keepcoding.dragonball.view.home.HerosKombatProtocol
 import com.keepcoding.dragonball.view.home.HerosKombatViewModel
 import kotlinx.coroutines.Job
@@ -39,9 +42,12 @@ class ListFragment: Fragment() {
         return binding.root
     }
 
+
+
     private fun initViews() {
         binding.Rclistheros.layoutManager = LinearLayoutManager(this.context)
         binding.Rclistheros.adapter = herosAdapter
+        binding.Rclistheros.addItemDecoration(SpaceItemDecoration(24))
     }
 
     private fun setObservers(){
@@ -79,14 +85,17 @@ class ListFragment: Fragment() {
     private fun loadingSettings() {
         binding.loadingheroslist.visibility = View.VISIBLE
         binding.Rclistheros.visibility = View.GONE
+        binding.TvTitleRcView.visibility = View.GONE
     }
 
     private fun successSettings() {
         binding.loadingheroslist.visibility = View.GONE
         binding.Rclistheros.visibility = View.VISIBLE
+        binding.TvTitleRcView.visibility = View.VISIBLE
     }
 
     private fun errorSettings(){
         binding.loadingheroslist.visibility = View.GONE
+        binding.TvTitleRcView.text = "Error in the app"
     }
 }
