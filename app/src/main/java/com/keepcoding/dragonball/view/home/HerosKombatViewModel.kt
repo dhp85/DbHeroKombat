@@ -45,7 +45,15 @@ class HerosKombatViewModel : ViewModel() {
     }
 
     fun fightHero(hero: HeroModel) {
-        hero.currentLife -= 10
+        if (hero.currentLife in 1..100) {
+            hero.currentLife -= 10
+        }
+    }
+
+    fun healHero(hero: HeroModel) {
+        if (hero.currentLife < 91) {
+            hero.currentLife += 10
+        }
     }
 
     fun heroSelected(hero: HeroModel){

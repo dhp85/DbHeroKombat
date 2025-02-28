@@ -48,7 +48,7 @@ class HerosRepository {
                     currentLife = 100,
                     maxLife =  100
                 )
-            }
+            }.sortedBy { it.name.lowercase() }
 
             HerosResponse.Success(herosList)
         } else {

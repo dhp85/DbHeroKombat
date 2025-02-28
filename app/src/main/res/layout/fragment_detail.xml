@@ -28,4 +28,11 @@
         android:layout_height="wrap_content"
         android:text="Fight"/>
 
+    <Button
+        android:id="@+id/buttonHeal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Heal"
+        />
+
 </LinearLayout>

@@ -37,6 +37,10 @@ class DetailFragment: Fragment() {
                 viewModel.fightHero(hero)
                 binding.pbFDetail.progress = hero.currentLife
             }
+            buttonHeal.setOnClickListener {
+                viewModel.healHero(hero)
+                binding.pbFDetail.progress = hero.currentLife
+            }
         }
     }
 
