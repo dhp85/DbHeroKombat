@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.keepcoding.dragonball.R
 import com.keepcoding.dragonball.databinding.FragmentListBinding
+import com.keepcoding.dragonball.model.HeroModel
 import com.keepcoding.dragonball.tools.SpaceItemDecoration
 import com.keepcoding.dragonball.view.home.HerosKombatProtocol
 import com.keepcoding.dragonball.view.home.HerosKombatViewModel
@@ -62,10 +63,7 @@ class ListFragment: Fragment() {
                         successSettings()
                         herosAdapter.updateHeros(state.Heros)
                         binding.fabAdd.setOnClickListener{
-                            for (hero in state.Heros) {
-                                hero.currentLife = 100
-                                herosAdapter.updateHeros(state.Heros)
-                            }
+                            resurrectionAllHeros(state.Heros)
                         }
                     }
                     is HerosKombatViewModel.State.Error -> {
@@ -79,6 +77,14 @@ class ListFragment: Fragment() {
             }
         }
 
+    }
+
+    private fun resurrectionAllHeros (list: List<HeroModel>) {
+        for (hero in list) {
+            hero.currentLife = 100
+            herosAdapter.updateHeros(list)
+        }
+        Toast.makeText(this.context,"WISH GRANTED!!!. --Resurrected Heros--.",Toast.LENGTH_LONG).show()
     }
 
     override fun onStop() {

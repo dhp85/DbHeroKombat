@@ -3,36 +3,80 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/azul_transp30"
     android:gravity="center"
-    android:orientation="vertical">
+    android:padding="16dp">
 
+    <!-- Título de héroe -->
     <TextView
         android:id="@+id/tvFDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textSize="24sp"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Imagen del héroe -->
+    <ImageView
+        android:id="@+id/heroImage"
+        android:clipToOutline="true"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/circle_shape"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center" />
+
+    <!-- Barra de progreso (vida del héroe) -->
+    <ProgressBar
+        android:id="@+id/pbFDetail"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:progressTint="@color/azul_oscuro"
+        android:background="@color/gris"
+        android:minHeight="20dp"
+        tools:progress="50"/>
+
+    <!-- Contenedor para los botones -->
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Name"/>
+        android:layout_marginBottom="16dp">
 
-    <ProgressBar
-        android:id="@+id/pbFDetail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:progressTint="@color/azul_oscuro"
-        android:background="@color/gris"
-        tools:progress="50"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
+        <!-- Botón de lucha -->
+        <Button
+            android:id="@+id/buttonFight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/azul_claro"
+            android:text="Fight"
+            android:drawableLeft="@drawable/fist_bump"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:padding="12dp"
+            android:layout_marginEnd="8dp"/>
 
-    <Button
-        android:id="@+id/buttonFight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fight"/>
+        <!-- Botón de curación -->
+        <Button
+            android:id="@+id/buttonHeal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/beans"
+            android:layout_marginStart="8dp"
+            android:text="Heal"
+            android:textSize="16dp"
+            android:backgroundTint="@color/azul_claro"
+            android:textColor="@color/black"
+            android:padding="12dp" />
 
-    <Button
-        android:id="@+id/buttonHeal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Heal"
-        />
+    </LinearLayout>
 
 </LinearLayout>

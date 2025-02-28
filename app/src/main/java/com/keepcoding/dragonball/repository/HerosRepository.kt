@@ -46,7 +46,8 @@ class HerosRepository {
                     name = it.name,
                     photo = it.photo,
                     currentLife = 100,
-                    maxLife =  100
+                    maxLife =  100,
+                    timesSelected = 0
                 )
             }.sortedBy { it.name.lowercase() }
 

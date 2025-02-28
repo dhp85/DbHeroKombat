@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
 import com.keepcoding.dragonball.databinding.FragmentDetailBinding
 import com.keepcoding.dragonball.model.HeroModel
+import com.keepcoding.dragonball.view.home.HerosKombatProtocol
 import com.keepcoding.dragonball.view.home.HerosKombatViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -31,6 +34,11 @@ class DetailFragment: Fragment() {
 
     private fun initViews (hero: HeroModel) {
         with(binding) {
+            Glide
+                .with(binding.root)
+                .load(hero.photo)
+                .centerInside()
+                .into(binding.heroImage)
             tvFDetail.text = hero.name
             pbFDetail.progress = hero.currentLife
             buttonFight.setOnClickListener {
@@ -64,7 +72,9 @@ class DetailFragment: Fragment() {
     private fun backNotLife(life: Int) {
         binding.pbFDetail.progress = life
         if (life == 0) {
-            requireActivity().onBackPressedDispatcher.onBackPressed()
+            Toast.makeText(this.context,"Destroyed hero. Call Shenron to resurrect your heroes.",
+                Toast.LENGTH_LONG).show()
+            (activity as? HerosKombatProtocol)?.navListFragments()
         }
     }
 
