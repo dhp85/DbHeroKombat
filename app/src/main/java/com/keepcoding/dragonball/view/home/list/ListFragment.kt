@@ -42,12 +42,11 @@ class ListFragment: Fragment() {
         return binding.root
     }
 
-
-
     private fun initViews() {
         binding.Rclistheros.layoutManager = LinearLayoutManager(this.context)
         binding.Rclistheros.adapter = herosAdapter
         binding.Rclistheros.addItemDecoration(SpaceItemDecoration(24))
+
     }
 
     private fun setObservers(){
@@ -62,6 +61,12 @@ class ListFragment: Fragment() {
                     is HerosKombatViewModel.State.Success -> {
                         successSettings()
                         herosAdapter.updateHeros(state.Heros)
+                        binding.fabAdd.setOnClickListener{
+                            for (hero in state.Heros) {
+                                hero.currentLife = 100
+                                herosAdapter.updateHeros(state.Heros)
+                            }
+                        }
                     }
                     is HerosKombatViewModel.State.Error -> {
                         errorSettings()

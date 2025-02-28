@@ -36,6 +36,7 @@ class DetailFragment: Fragment() {
             buttonFight.setOnClickListener {
                 viewModel.fightHero(hero)
                 binding.pbFDetail.progress = hero.currentLife
+                backNotLife(hero.currentLife)
             }
             buttonHeal.setOnClickListener {
                 viewModel.healHero(hero)
@@ -58,6 +59,13 @@ class DetailFragment: Fragment() {
             }
         }
 
+    }
+
+    private fun backNotLife(life: Int) {
+        binding.pbFDetail.progress = life
+        if (life == 0) {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
     }
 
     override fun onStop() {

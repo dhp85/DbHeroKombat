@@ -2,6 +2,7 @@ package com.keepcoding.dragonball.view.home.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.keepcoding.dragonball.R
@@ -25,16 +26,35 @@ class HeroAdapter(private var onHeroCliked: (HeroModel) -> Unit) :
 
         fun bind(hero: HeroModel) {
             binding.heroName.text = hero.name
-            Glide
-                .with(binding.root)
-                .load(hero.photo)
-                .centerInside()
-                .placeholder(R.drawable.ic_launcher_foreground)
-                .into(binding.photo)
-            binding.pblife.progress = hero.currentLife
-            binding.tvlife.text = "${hero.currentLife}/${hero.maxLife}"
+            if (hero.currentLife > 0) {
+                Glide
+                    .with(binding.root)
+                    .load(hero.photo)
+                    .centerInside()
+                    .placeholder(R.drawable.ic_launcher_foreground)
+                    .into(binding.photo)
+                binding.pblife.progress = hero.currentLife
+                binding.tvlife.text = "${hero.currentLife}/${hero.maxLife}"
+                binding.cellItem.setCardBackgroundColor(
+                    ContextCompat.getColor(binding.root.context, R.color.azul_transp30)
+                )
+            } else {
+                Glide
+                    .with(binding.root)
+                    .load(R.mipmap.icono_muerto)
+                    .centerInside()
+                    .placeholder(R.drawable.ic_launcher_foreground)
+                    .into(binding.photo)
+                binding.pblife.progress = hero.currentLife
+                binding.tvlife.text = "${hero.currentLife}/${hero.maxLife}"
+                binding.cellItem.setCardBackgroundColor(
+                    ContextCompat.getColor(binding.root.context, R.color.gris)
+                )
+            }
             binding.root.setOnClickListener {
-                onHeroCliked(hero)
+                if (hero.currentLife > 0) {
+                    onHeroCliked(hero)
+                }
             }
         }
     }
