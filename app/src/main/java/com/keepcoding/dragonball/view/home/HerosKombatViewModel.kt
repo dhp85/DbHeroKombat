@@ -1,6 +1,7 @@
 package com.keepcoding.dragonball.view.home
 
 import android.content.SharedPreferences
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keepcoding.dragonball.model.HeroModel
@@ -23,7 +24,8 @@ class HerosKombatViewModel : ViewModel() {
 
     private val _uiState = MutableStateFlow<State>(State.Loading)
     private val herosRepository = HerosRepository()
-    private val userRepository = UserRepository()
+    @VisibleForTesting
+    val userRepository = UserRepository()
 
     val uiState: StateFlow<State> = _uiState.asStateFlow()
 
@@ -45,7 +47,7 @@ class HerosKombatViewModel : ViewModel() {
 
     fun fightHero(hero: HeroModel) {
         if (hero.currentLife > 0) {
-            hero.currentLife = (hero.currentLife - 60).coerceAtLeast(0)
+            hero.currentLife = (hero.currentLife - 10).coerceAtLeast(0)
         }
     }
 
@@ -56,7 +58,6 @@ class HerosKombatViewModel : ViewModel() {
     }
 
     fun heroSelected(hero: HeroModel){
-        hero.timesSelected++
         _uiState.value = State.HeroSelected(hero)
     }
 

@@ -40,33 +40,20 @@ class LoginViewModel: ViewModel() {
             }
         }
     }
-    /**
-     * Guarda las credenciales del usuario en SharedPreferences de manera asíncrona.
-     *
-     * @param preferences Instancia de SharedPreferences donde se guardarán los datos.
-     * @param user Nombre de usuario que se almacenará.
-     * @param password Contraseña que se almacenará.
-     */
+
     fun saveCredentials(preferences: SharedPreferences?, user: String, password: String, rememberMe: Boolean) {
-        // Ejecutamos la operación en un hilo de fondo para no bloquear la UI
         viewModelScope.launch(Dispatchers.IO) {
-            // Verificamos que preferences no sea nulo antes de operar sobre él
+
             preferences?.edit()?.apply {
-                putString("User", user) // Guardamos el nombre de usuario
-                putString("Password", password) // Guardamos la contraseña
+                putString("User", user)
+                putString("Password", password)
                 putBoolean("RememberMe", true)
-                apply() // Aplicamos los cambios de forma asíncrona
+                apply()
             }
         }
         Log.d("LoginViewModel", "Credenciales guardadas: Usuario=$user, Contraseña=$password, RememberMe=$rememberMe")
     }
 
-    /**
-     * Recupera las credenciales del usuario de SharedPreferences.
-     *
-     * @param preferences Instancia de SharedPreferences desde donde se leerán los datos.
-     * @return Un par con el nombre de usuario y la contraseña, o null si no existen.
-     */
     fun getCredentials(preferences: SharedPreferences?): Pair<String?, String?> {
         val user = preferences?.getString("User", null)
         val password = preferences?.getString("Password", null)
@@ -77,11 +64,7 @@ class LoginViewModel: ViewModel() {
         return preferences?.getBoolean("RememberMe", false) ?: false
     }
 
-    /**
-     * Elimina las credenciales guardadas de SharedPreferences.
-     *
-     * @param preferences Instancia de SharedPreferences desde donde se eliminarán los datos.
-     */
+
     fun clearCredentials(preferences: SharedPreferences?) {
         preferences?.edit()?.apply {
             remove("User")

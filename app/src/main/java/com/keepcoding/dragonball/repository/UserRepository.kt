@@ -1,6 +1,7 @@
 package com.keepcoding.dragonball.repository
 
 import android.util.Log
+import androidx.annotation.VisibleForTesting
 import okhttp3.Credentials
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
@@ -55,4 +56,7 @@ class UserRepository {
     fun getToken(): String {
         return token
     }
+
+    @VisibleForTesting
+    fun setToken(token: String) {UserRepository.token = token}
 }

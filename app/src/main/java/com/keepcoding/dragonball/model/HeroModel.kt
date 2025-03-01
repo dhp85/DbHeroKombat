@@ -1,6 +1,6 @@
 package com.keepcoding.dragonball.model
 
-class HeroModel(
+data class HeroModel(
     val id: String,
     val name: String,
     val photo: String,
