@@ -1,7 +1,7 @@
 # Dragon Ball Hero Kombat Simulator
 
 ## Descripción
-Este proyecto es una aplicación móvil que simula batallas de Dragon Ball, cumpliendo con los requisitos de Fundamentos Android. 
+Este proyecto es una aplicación móvil **Android** que simula batallas de Dragon Ball, cumpliendo con los requisitos de Fundamentos Android. 
 Utiliza la API proporcionada para obtener los personajes y permite al usuario interactuar con ellos en un entorno de batalla.
 
 ## Características Principales
