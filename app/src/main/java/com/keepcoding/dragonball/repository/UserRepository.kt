@@ -1,6 +1,10 @@
 package com.keepcoding.dragonball.repository
 
-import kotlin.random.Random
+import android.util.Log
+import okhttp3.Credentials
+import okhttp3.FormBody
+import okhttp3.OkHttpClient
+import okhttp3.Request
 
 class UserRepository {
 
@@ -8,17 +12,42 @@ class UserRepository {
         private var token = ""
     }
 
+    private val BASE_URL = "https://dragonball.keepcoding.education/api/"
+
     sealed class LoginResponse {
-        data object Success : LoginResponse()
+        data object Success: LoginResponse()
         data class Error(val message: String) : LoginResponse()
     }
 
-    fun login(usuario: String, password: String): LoginResponse {
-        return if (Random.nextBoolean()) {
-            token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6InByaXZhdGUifQ.eyJlbWFpbCI6ImRpZWdvaHA4NUBnbWFpbC5jb20iLCJleHBpcmF0aW9uIjo2NDA5MjIxMTIwMCwiaWRlbnRpZnkiOiJGQkY5QkUzRi02QzgwLTQ2MUItOUFFMC1DMDUxOUI0OEYxRjcifQ.dpPlw3yRmS_6shSCOwL1zYzt681cnh2qim4jY7NO5m8"
+    fun login(user: String, password: String): LoginResponse {
+
+        val client = OkHttpClient()
+        val url = "${BASE_URL}auth/login"
+
+        val credentials = Credentials.basic(user,password)
+        val formBody = FormBody.Builder()
+            .build()
+
+        val request = Request.Builder()
+            .url(url)
+            .post(formBody)
+            .addHeader("Authorization", credentials)
+            .build()
+
+        val response = client.newCall(request).execute()
+
+        Log.d("UserRepository", "Response code: ${response.code}")
+        Log.d("UserRepository", "Response message: ${response.message}")
+
+        return if (response.isSuccessful) {
+            val responseBody = response.body?.string()
+            val tokenReceived = responseBody?.trim() ?: ""
+            token = tokenReceived
             LoginResponse.Success
+
         } else {
-            LoginResponse.Error("response 501")
+            Log.e("UserRepository", "Error en la autenticación: ${response.code} - ${response.message}")
+            LoginResponse.Error("Error ${response.code}: ${response.message}")
         }
 
     }
