@@ -3,18 +3,12 @@ package com.keepcoding.dragonball.view.home
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.keepcoding.dragonball.databinding.ActivityHerosKombatBinding
 import com.keepcoding.dragonball.view.home.detail.DetailFragment
 import com.keepcoding.dragonball.view.home.list.ListFragment
-import kotlinx.coroutines.launch
-import kotlin.random.Random
 
 
 interface HerosKombatProtocol {

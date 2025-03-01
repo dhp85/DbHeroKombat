@@ -1,12 +1,12 @@
 package com.keepcoding.dragonball.view.home
 
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keepcoding.dragonball.model.HeroModel
 import com.keepcoding.dragonball.repository.HerosRepository
 import com.keepcoding.dragonball.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -22,8 +22,8 @@ class HerosKombatViewModel : ViewModel() {
     }
 
     private val _uiState = MutableStateFlow<State>(State.Loading)
-    private val HerosRepository = HerosRepository()
-    private val UserRepository = UserRepository()
+    private val herosRepository = HerosRepository()
+    private val userRepository = UserRepository()
 
     val uiState: StateFlow<State> = _uiState.asStateFlow()
 
@@ -31,8 +31,7 @@ class HerosKombatViewModel : ViewModel() {
     fun loadHeros() {
         viewModelScope.launch(Dispatchers.IO) {
             _uiState.value = State.Loading
-           delay(2000)
-            val listOfHeros = HerosRepository.fetchHeros(UserRepository.getToken())
+            val listOfHeros = herosRepository.fetchHeros(userRepository.getToken())
             when(listOfHeros) {
                 is HerosRepository.HerosResponse.Success -> {
                     _uiState.value = State.Success(listOfHeros.heros)
@@ -45,14 +44,14 @@ class HerosKombatViewModel : ViewModel() {
     }
 
     fun fightHero(hero: HeroModel) {
-        if (hero.currentLife in 1..100) {
-            hero.currentLife -= 10
+        if (hero.currentLife > 0) {
+            hero.currentLife = (hero.currentLife - 60).coerceAtLeast(0)
         }
     }
 
     fun healHero(hero: HeroModel) {
-        if (hero.currentLife < 91) {
-            hero.currentLife += 10
+        if (hero.currentLife < 100) {
+            hero.currentLife += 20
         }
     }
 
@@ -62,14 +61,16 @@ class HerosKombatViewModel : ViewModel() {
     }
 
     fun deselectedHero() {
-        val listOfHeros = HerosRepository.fetchHeros(UserRepository.getToken())
-        when(listOfHeros) {
-            is HerosRepository.HerosResponse.Success -> {
-                _uiState.value = State.Success(listOfHeros.heros)
-            }
-            is  HerosRepository.HerosResponse.Error -> {
-                _uiState.value = State.Error(listOfHeros.message)
+
+            val listOfHeros = herosRepository.fetchHeros(userRepository.getToken())
+            when(listOfHeros) {
+                is HerosRepository.HerosResponse.Success -> {
+                    _uiState.value = State.Success(listOfHeros.heros)
+                }
+                is  HerosRepository.HerosResponse.Error -> {
+                    _uiState.value = State.Error(listOfHeros.message)
+                }
             }
         }
+
     }
-}
