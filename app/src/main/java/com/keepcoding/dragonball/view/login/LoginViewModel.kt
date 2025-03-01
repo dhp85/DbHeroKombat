@@ -1,6 +1,7 @@
 package com.keepcoding.dragonball.view.login
 
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keepcoding.dragonball.repository.UserRepository
@@ -46,18 +47,47 @@ class LoginViewModel: ViewModel() {
      * @param user Nombre de usuario que se almacenará.
      * @param password Contraseña que se almacenará.
      */
-    fun saveCredentials(preferences: SharedPreferences?, user: String, password: String) {
+    fun saveCredentials(preferences: SharedPreferences?, user: String, password: String, rememberMe: Boolean) {
         // Ejecutamos la operación en un hilo de fondo para no bloquear la UI
         viewModelScope.launch(Dispatchers.IO) {
             // Verificamos que preferences no sea nulo antes de operar sobre él
             preferences?.edit()?.apply {
                 putString("User", user) // Guardamos el nombre de usuario
                 putString("Password", password) // Guardamos la contraseña
+                putBoolean("RememberMe", true)
                 apply() // Aplicamos los cambios de forma asíncrona
             }
         }
+        Log.d("LoginViewModel", "Credenciales guardadas: Usuario=$user, Contraseña=$password, RememberMe=$rememberMe")
+    }
+
+    /**
+     * Recupera las credenciales del usuario de SharedPreferences.
+     *
+     * @param preferences Instancia de SharedPreferences desde donde se leerán los datos.
+     * @return Un par con el nombre de usuario y la contraseña, o null si no existen.
+     */
+    fun getCredentials(preferences: SharedPreferences?): Pair<String?, String?> {
+        val user = preferences?.getString("User", null)
+        val password = preferences?.getString("Password", null)
+        return Pair(user, password)
+    }
+
+    fun getRememberMeState(preferences: SharedPreferences?): Boolean {
+        return preferences?.getBoolean("RememberMe", false) ?: false
+    }
+
+    /**
+     * Elimina las credenciales guardadas de SharedPreferences.
+     *
+     * @param preferences Instancia de SharedPreferences desde donde se eliminarán los datos.
+     */
+    fun clearCredentials(preferences: SharedPreferences?) {
+        preferences?.edit()?.apply {
+            remove("User")
+            remove("Password")
+            remove("RememberMe")
+            apply()
+        }
     }
 }
-
-// Si el usuario ya hecho login, no volverselo a pedir.
-// Si el usuario le ha dado a recordar ususario y contraseña. Despues mostralo en el login.
