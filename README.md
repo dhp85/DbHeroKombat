@@ -20,6 +20,7 @@ Utiliza la API proporcionada para obtener los personajes y permite al usuario in
 - **Networking**: OkHttpClient para consumo de API
 - **Carga y manejo de Imagenes**: Glide
 - **UI**: XML
+- **Testing**: JUnit
 - **Otros**: Utilizacion de ViewModels y Fragments para las distintas vistas de Lista y detalle de heroes.
 
 ## Instalación y Configuración
